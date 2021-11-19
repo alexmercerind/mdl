@@ -42,7 +42,7 @@
         margin: auto;
         width: 8px;
         height: 8px;
-        background: #fff;
+        background: #616161;
         border-radius: 50%;
         -webkit-animation: loader-5-2 2s cubic-bezier(0.77, 0, 0.175, 1)
             infinite;
@@ -81,7 +81,7 @@
         margin: auto;
         width: 8px;
         height: 8px;
-        background: #fff;
+        background: #616161;
         border-radius: 50%;
         -webkit-animation: loader-5-3 2s cubic-bezier(0.77, 0, 0.175, 1)
             infinite;
@@ -131,7 +131,7 @@
         margin: auto;
         width: 8px;
         height: 8px;
-        background: #fff;
+        background: #616161;
         border-radius: 50%;
         -webkit-animation: loader-5-4 2s cubic-bezier(0.77, 0, 0.175, 1)
             infinite;
@@ -170,7 +170,7 @@
         margin: auto;
         width: 8px;
         height: 8px;
-        background: #fff;
+        background: #616161;
         border-radius: 50%;
         -webkit-animation: loader-5-5 2s cubic-bezier(0.77, 0, 0.175, 1)
             infinite;
