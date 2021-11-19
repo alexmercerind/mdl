@@ -16,18 +16,24 @@
 
 div {
 	font-family: var(--font-family);
-	color: var(--subtitle-color);
+	color: var(--title-color);
 	font-size: 15px;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 html {
 	margin: 0;
 	padding: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 .title {
@@ -39,12 +45,19 @@ html {
 }
 
 .subtitle {
-	font-size: 24px;
+	font-size: 14px;
 	color: var(--subtitle-color);
-	font-weight: var(--font-light);
+	font-weight: var(--font-normal);
 }
 
 a {
 	color: var(--accent-color);
 	font-size: 15px;
+}
+
+.loader-container {
+	position: absolute;
+	left: calc(50% - 16px);
+	top: calc(50% - 16px);
+	transform: scale(2);
 }

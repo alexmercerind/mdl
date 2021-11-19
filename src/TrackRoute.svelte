@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { fly, fade, scale } from "svelte/transition";
+    import { fly, fade } from "svelte/transition";
     import Loader from "./Loader.svelte";
 
     let label = (duration) => {
@@ -11,10 +11,10 @@
 
     let id = (link) => {
         if (link.includes("youtu.be")) {
-            if (link[link.length - 1] == "/") {
-                return link.split("/")[link.split.length - 2];
+            if (link.at(-1) == "/") {
+                return link.split("/").at(-2);
             }
-            return link.split("/")[link.split.length - 1];
+            return link.split("/").at(-1);
         } else if (link.includes("youtube.com")) {
             if (link.includes("&")) {
                 return link.substring(
@@ -26,14 +26,14 @@
                     .substring(link.indexOf("v=") + 2, link.length)
                     .replace("/", "");
         }
-        return link.split("/")[link.split("/").length - 1];
+        return link.split("/").at(-1);
     };
 
     let track;
     onMount(async () => {
         console.log(id(location.href));
         let response = await fetch(
-            `http://127.0.0.1:8000/track_info?track_id=${id(location.href)}`
+            `http://localhost:8000/track_info?track_id=${id(location.href)}`
         );
         track = await response.json();
     });
@@ -105,15 +105,6 @@
         overflow-y: hidden;
     }
 
-    .loader-container {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        left: calc(50% - 16px);
-        top: calc(50% - 16px);
-    }
-
     .track {
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -129,8 +120,8 @@
     }
 
     .track:hover {
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-            0 10px 10px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25),
+            0 6px 8px rgba(0, 0, 0, 0.22);
     }
 
     .album-art {
@@ -170,9 +161,8 @@
         margin-top: 24px;
     }
 
-    .track-button:hover {
-        background-color: #fff;
-        color: #000;
+    .track-button:active {
+        transform: scale(0.9);
     }
 
     @media only screen and (max-width: 640px) {
