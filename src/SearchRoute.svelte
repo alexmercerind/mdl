@@ -14,7 +14,7 @@
     onMount(async () => {
         let keyword = location.href.split("/").at(-1);
         let response = await fetch(
-            `http://localhost:8000/search?keyword=${decodeURIComponent(
+            `http://x1yb80pwsn4.herokuapp.com/search?keyword=${decodeURIComponent(
                 keyword
             )}&mode=track`
         );

@@ -33,7 +33,9 @@
     onMount(async () => {
         console.log(id(location.href));
         let response = await fetch(
-            `http://localhost:8000/track_info?track_id=${id(location.href)}`
+            `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${id(
+                location.href
+            )}`
         );
         track = await response.json();
     });
@@ -73,8 +75,8 @@
                     <a
                         class="track-button"
                         target="__blank"
-                        href="http://127.0.0.1:8000/download/{track[
-                            'track_id'
+                        href="http://x1yb80pwsn4.herokuapp.com/download/{track[
+                            'track_file_name'
                         ]}.ogg">Download</a
                     >
                     <div style="width: 12px;" />
@@ -162,7 +164,7 @@
     }
 
     .track-button:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
 
     @media only screen and (max-width: 640px) {
