@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { HOST } from "./constants.js";
     import { fly, fade } from "svelte/transition";
     import { Link, navigate } from "svelte-navigator";
     import Loader from "./Loader.svelte";
@@ -25,23 +26,22 @@
                 result = undefined;
                 if (search.value === "") {
                     result = "Lookup for the music of your choice";
-                    console.log(typeof result);
                 } else {
                     let response = await fetch(
                         `https://x1yb80pwsn4.herokuapp.com/search?keyword=${search.value}&mode=track`
                     );
                     result = await response.json();
                     result = result["result"];
-                    navigate(`/${search.value}`, { replace: true });
+                    navigate(`${HOST}/${search.value}`, { replace: true });
                     search.focus();
                 }
             }
         });
-        if (location.pathname == "/") {
+        let keyword = location.pathname.split("/").at(-1);
+        if (keyword == "") {
             result = "Lookup for the music of your choice";
             return;
         }
-        let keyword = location.pathname.split("/").at(-1);
         search.value = decodeURIComponent(keyword);
         let response = await fetch(
             `https://x1yb80pwsn4.herokuapp.com/search?keyword=${decodeURIComponent(
@@ -103,7 +103,7 @@
             margin-bottom: 12px;
             margin-left: 24px;
             margin-right: 24px;"
-                    to={`/track/${track["track_id"]}+${track["album_id"]}`}
+                    to={`track/${track["track_id"]}+${track["album_id"]}`}
                 >
                     <div
                         in:fly={{ delay: 100, duration: 500, y: 100 }}
