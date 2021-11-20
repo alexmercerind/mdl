@@ -28,23 +28,23 @@
                     console.log(typeof result);
                 } else {
                     let response = await fetch(
-                        `http://x1yb80pwsn4.herokuapp.com/search?keyword=${search.value}&mode=track`
+                        `https://x1yb80pwsn4.herokuapp.com/search?keyword=${search.value}&mode=track`
                     );
                     result = await response.json();
                     result = result["result"];
-                    navigate(`/search/${search.value}`, { replace: true });
+                    navigate(`/${search.value}`, { replace: true });
                     search.focus();
                 }
             }
         });
-        if (location.pathname.split("/").length < 3) {
+        if (location.pathname == "/") {
             result = "Lookup for the music of your choice";
             return;
         }
-        let keyword = location.href.split("/").at(-1);
+        let keyword = location.pathname.split("/").at(-1);
         search.value = decodeURIComponent(keyword);
         let response = await fetch(
-            `http://x1yb80pwsn4.herokuapp.com/search?keyword=${decodeURIComponent(
+            `https://x1yb80pwsn4.herokuapp.com/search?keyword=${decodeURIComponent(
                 keyword
             )}&mode=track`
         );

@@ -33,7 +33,7 @@
     onMount(async () => {
         if (location.href.includes("+")) {
             let response = await fetch(
-                `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${location.href
+                `https://x1yb80pwsn4.herokuapp.com/track_info?track_id=${location.href
                     .split("/")
                     .at(-1)
                     .split("+")
@@ -46,7 +46,7 @@
             track = await response.json();
         } else {
             let response = await fetch(
-                `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${id(
+                `https://x1yb80pwsn4.herokuapp.com/track_info?track_id=${id(
                     location.href
                 )}`
             );
@@ -91,7 +91,7 @@
                         class="track-button"
                         on:click={() => {
                             window.open(
-                                `http://x1yb80pwsn4.herokuapp.com/download/${track["track_file_name"]}.ogg`,
+                                `https://x1yb80pwsn4.herokuapp.com/download/${track["track_file_name"]}.ogg`,
                                 "__blank"
                             );
                         }}>Download</a
