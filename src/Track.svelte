@@ -11,10 +11,10 @@
 
     let id = (link) => {
         if (link.includes("youtu.be")) {
-            if (link.at(-1) === "/") {
-                return link.split("/").at(-2);
+            if (link.pop() === "/") {
+                return link.split("/")[link.split("/").length - 2];
             }
-            return link.split("/").at(-1);
+            return link.split("/").pop();
         } else if (link.includes("youtube.com")) {
             if (link.includes("&")) {
                 return link.substring(
@@ -26,22 +26,16 @@
                     .substring(link.indexOf("v=") + 2, link.length)
                     .replace("/", "");
         }
-        return link.split("/").at(-1);
+        return link.split("/").pop();
     };
 
     let track;
     onMount(async () => {
         if (location.href.includes("+")) {
             let response = await fetch(
-                `https://x1yb80pwsn4.herokuapp.com/track_info?track_id=${location.href
-                    .split("/")
-                    .at(-1)
-                    .split("+")
-                    .at(0)}&album_id=${location.href
-                    .split("/")
-                    .at(-1)
-                    .split("+")
-                    .at(-1)}`
+                `https://x1yb80pwsn4.herokuapp.com/track_info?track_id=${
+                    location.href.split("/").pop().split("+")[0]
+                }&album_id=${location.href.split("/").pop().split("+").pop()}`
             );
             track = await response.json();
         } else {
@@ -96,17 +90,17 @@
                             );
                         }}>Download</a
                     >
-                    <div style="width: 12px;" />
+                    <div style="width: 8px;" />
                     <!-- svelte-ignore a11y-missing-attribute -->
-                    <a
+                    <!-- <a
                         class="track-button"
                         on:click={() => {
                             navigator.clipboard.writeText(
                                 JSON.stringify(track)
                             );
                         }}>Copy Details</a
-                    >
-                    <div style="width: 12px;" />
+                    > -->
+                    <div style="width: 8px;" />
                     <!-- svelte-ignore a11y-missing-attribute -->
                     <a
                         class="track-button"
@@ -161,7 +155,7 @@
     }
 
     .metadata {
-        margin: 18px 24px 18px 24px;
+        margin: 18px 18px 18px 18px;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -194,7 +188,7 @@
         color: #fff;
         cursor: pointer;
         transition-duration: 200ms;
-        margin-top: 24px;
+        margin-top: 18px;
     }
 
     .track-button:active {

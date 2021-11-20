@@ -4,6 +4,13 @@
   import { Router, Route } from "svelte-navigator";
 
   fetch("https://x1yb80pwsn4.herokuapp.com");
+  addEventListener("load", function () {
+    var viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute(
+      "content",
+      viewport.content + ", height=" + window.innerHeight
+    );
+  });
 </script>
 
 <Router>

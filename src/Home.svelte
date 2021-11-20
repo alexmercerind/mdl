@@ -22,7 +22,7 @@
             document.getElementById("search-icon").style.color = "#aaaaaa";
         });
         search.input.addEventListener("keydown", async (event) => {
-            if (event.code === "Enter") {
+            if (event.code === "Enter" || event.key === "Enter") {
                 result = undefined;
                 if (search.value === "") {
                     result = "Lookup for the music of your choice";
@@ -37,7 +37,10 @@
                 }
             }
         });
-        let keyword = location.pathname.split("/").at(-1);
+        let keyword =
+            location.pathname.split("/")[
+                location.pathname.split("/").length - 1
+            ];
         if (keyword == "") {
             result = "Lookup for the music of your choice";
             return;
@@ -80,21 +83,23 @@
         />
     </label>
 </div>
+
+{#if typeof result === "string"}
+    <i
+        id="search-icon"
+        style="font-size:280px; z-index: -1000; color: #cccccc; margin-right: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+        class="material-icons">music_note</i
+    >
+    <div class="centered-label">
+        <div>{result}</div>
+    </div>
+{/if}
 <div class="scrollview">
     {#if result === undefined}
         <div class="loader-container">
             <Loader />
         </div>
-    {:else if typeof result === "string"}
-        <i
-            id="search-icon"
-            style="font-size:280px; z-index: -1000; color: #cccccc; margin-right: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-            class="material-icons">music_note</i
-        >
-        <div class="centered-label">
-            <div>{result}</div>
-        </div>
-    {:else}
+    {:else if typeof result !== "string"}
         <div class="scaffold">
             {#each result as track}
                 <Link
@@ -144,7 +149,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100%;
+        height: 100vh;
     }
 
     .search-container {
@@ -175,6 +180,7 @@
         overflow-y: scroll;
         height: 100vh;
         padding-top: 104px;
+        min-height: 100%;
     }
 
     .scrollview {
@@ -182,15 +188,6 @@
         height: 100%;
         width: 100%;
         flex: 1;
-    }
-
-    .loader-container {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        left: calc(50% - 16px);
-        top: calc(50% - 16px);
     }
 
     .track-container {
