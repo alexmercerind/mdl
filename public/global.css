@@ -61,3 +61,17 @@ a {
 	top: calc(50% - 16px);
 	transform: scale(2);
 }
+
+@media only screen and (max-width: 640px) {
+	:root {
+		--font-light: 300;
+	}
+
+	.title {
+		font-size: 28px;
+		color: var(--title-color);
+		font-weight: var(--font-light);
+		text-overflow: ellipsis;
+		line-clamp: 1;
+	}
+}
