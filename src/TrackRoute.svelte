@@ -11,7 +11,7 @@
 
     let id = (link) => {
         if (link.includes("youtu.be")) {
-            if (link.at(-1) == "/") {
+            if (link.at(-1) === "/") {
                 return link.split("/").at(-2);
             }
             return link.split("/").at(-1);
@@ -31,18 +31,32 @@
 
     let track;
     onMount(async () => {
-        console.log(id(location.href));
-        let response = await fetch(
-            `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${id(
-                location.href
-            )}`
-        );
-        track = await response.json();
+        if (location.href.includes("+")) {
+            let response = await fetch(
+                `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${location.href
+                    .split("/")
+                    .at(-1)
+                    .split("+")
+                    .at(0)}&album_id=${location.href
+                    .split("/")
+                    .at(-1)
+                    .split("+")
+                    .at(-1)}`
+            );
+            track = await response.json();
+        } else {
+            let response = await fetch(
+                `http://x1yb80pwsn4.herokuapp.com/track_info?track_id=${id(
+                    location.href
+                )}`
+            );
+            track = await response.json();
+        }
     });
 </script>
 
 <div class="scaffold">
-    {#if track == undefined}
+    {#if track === undefined}
         <div class="loader-container">
             <Loader />
         </div>
@@ -58,7 +72,7 @@
                 alt="album_art_high"
             />
             <div class="metadata">
-                <div>
+                <div class="data">
                     <div class="title">{track["track_name"]}</div>
                     <br />
                     <div>
@@ -72,12 +86,15 @@
                     <div>{track["year"]}</div>
                 </div>
                 <div class="button-bar">
+                    <!-- svelte-ignore a11y-missing-attribute -->
                     <a
                         class="track-button"
-                        target="__blank"
-                        href="http://x1yb80pwsn4.herokuapp.com/download/{track[
-                            'track_file_name'
-                        ]}.ogg">Download</a
+                        on:click={() => {
+                            window.open(
+                                `http://x1yb80pwsn4.herokuapp.com/download/${track["track_file_name"]}.ogg`,
+                                "__blank"
+                            );
+                        }}>Download</a
                     >
                     <div style="width: 12px;" />
                     <!-- svelte-ignore a11y-missing-attribute -->
@@ -88,6 +105,16 @@
                                 JSON.stringify(track)
                             );
                         }}>Copy Details</a
+                    >
+                    <div style="width: 12px;" />
+                    <!-- svelte-ignore a11y-missing-attribute -->
+                    <a
+                        class="track-button"
+                        on:click={() =>
+                            navigator.share({
+                                title: track["track_name"],
+                                url: location.href,
+                            })}>Share</a
                     >
                 </div>
             </div>
@@ -135,10 +162,17 @@
 
     .metadata {
         margin: 18px 24px 18px 24px;
-        width: max-content;
+        width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         flex-direction: column;
+    }
+
+    .data {
+        height: 100%;
+        width: 100%;
+        position: relative;
     }
 
     .button-bar {
@@ -178,6 +212,10 @@
             width: calc(100% - 48px);
             height: auto;
             flex-direction: column;
+        }
+
+        .metadata {
+            width: calc(100% - 48px);
         }
 
         .album-art {
