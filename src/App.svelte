@@ -3,6 +3,8 @@
   import AlbumRoute from "./AlbumRoute.svelte";
   import SearchRoute from "./SearchRoute.svelte";
   import { Router, Route, Link } from "svelte-navigator";
+
+  fetch("http://x1yb80pwsn4.herokuapp.com");
 </script>
 
 <Router>
