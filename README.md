@@ -6,10 +6,6 @@
     <td><img src='https://github.com/alexmercerind/mdl/blob/assets/mobile_0.jpg?raw=true'></img></td>
     <td><img src='https://github.com/alexmercerind/mdl/blob/assets/mobile_1.jpg?raw=true'></img></td>
   </tr>
-  <tr>
-    <td><img src='https://github.com/alexmercerind/mdl/blob/assets/image_0.jpg?raw=true'></img></td>
-    <td><img src='https://github.com/alexmercerind/mdl/blob/assets/image_1.jpg?raw=true'></img></td>
-  </tr>
 </table>
 
 ## Features
@@ -17,6 +13,7 @@
 - Material design.
 - Immersive animations.
 - Fast navigation & downloads.
+- Responsive layout.
 - Made with Svelte. 🧡
 
 ## Develop
@@ -34,3 +31,7 @@ $ npm run dev
 MIT 
 
 Copyright © 2021, Hitesh Kumar Saini <<saini123hitesh@gmail.com>>
+
+
+<img src='https://github.com/alexmercerind/mdl/blob/assets/image_0.jpg?raw=true'></img>
+<img src='https://github.com/alexmercerind/mdl/blob/assets/image_1.jpg?raw=true'></img>
